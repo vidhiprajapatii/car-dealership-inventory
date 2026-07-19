@@ -119,6 +119,15 @@ function Dashboard() {
 };
 
   const handleAddVehicle = async () => {
+    if (!make || !model || !category || !price || !quantity) {
+  alert("Please fill all fields");
+  return;
+}
+
+if (Number(price) <= 0 || Number(quantity) < 0) {
+  alert("Enter valid price and quantity");
+  return;
+}
     try {
       const token = localStorage.getItem("token");
 
@@ -172,6 +181,15 @@ function Dashboard() {
 };
 
 const handleUpdate = async () => {
+  if (!make || !model || !category || !price || !quantity) {
+  alert("Please fill all fields");
+  return;
+}
+
+if (Number(price) <= 0 || Number(quantity) < 0) {
+  alert("Enter valid price and quantity");
+  return;
+}
   try {
     const token = localStorage.getItem("token");
 

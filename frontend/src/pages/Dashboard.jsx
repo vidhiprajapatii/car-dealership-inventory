@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import "../App.css";
 
 function Dashboard() {
   const [vehicles, setVehicles] = useState([]);
@@ -15,7 +16,7 @@ function Dashboard() {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [editId, setEditId] = useState(null);
-  const navigate = useNavigate();
+  
 
   const handleLogout = () => {
   localStorage.removeItem("token");
@@ -226,14 +227,18 @@ if (Number(price) <= 0 || Number(quantity) < 0) {
 };
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>🚗 Car Dealership Dashboard</h1>
+    <div className="dashboard" >
+     <div className="header">
+  <h1>🚗 Car Dealership Dashboard</h1>
 
-      <div style={{ margin: "15px 0" }}>
-  <button onClick={handleLogout}>Logout</button>
+  <button
+    className="logoutBtn"
+    onClick={handleLogout}
+  >
+    Logout
+  </button>
 </div>
-
-      <div style={{ marginBottom: "20px" }}>
+      <div className="card">
         <input
           type="text"
           placeholder="Make"
@@ -269,16 +274,16 @@ if (Number(price) <= 0 || Number(quantity) < 0) {
           onChange={(e) => setQuantity(e.target.value)}
         />
 {editId ? (
-  <button onClick={handleUpdate}>
+  <button  className="addBtn" onClick={handleUpdate}>
     Update Vehicle
   </button>
 ) : (
-  <button onClick={handleAddVehicle}>
+  <button className="addBtn" onClick={handleAddVehicle}>
     Add Vehicle
   </button>
 )}      </div>
 
-      <div style={{ margin: "20px 0" }}>
+      <div className="card">
         <input
           type="text"
           placeholder="Search by Make, Model or Category"
@@ -291,11 +296,12 @@ if (Number(price) <= 0 || Number(quantity) < 0) {
           }}
         />
 
-        <button onClick={handleSearch}>
+        <button  className="searchBtn" onClick={handleSearch}>
           Search
         </button>
 
         <button
+          className="showBtn"
           onClick={fetchVehicles}
           style={{ marginLeft: "10px" }}
         >
@@ -328,11 +334,12 @@ if (Number(price) <= 0 || Number(quantity) < 0) {
               <td>₹{vehicle.price}</td>
               <td>{vehicle.quantity}</td>
               <td>
-  <button onClick={() => handlePurchase(vehicle.id)}>
+  <button className="purchaseBtn"
+  disabled={vehicle.quantity === 0} onClick={() => handlePurchase(vehicle.id)}>
     Purchase
   </button>
 
-  <button
+  <button  className="restockBtn"
   onClick={() => handleRestock(vehicle.id)}
   style={{ marginLeft: "10px" }}
 >
@@ -340,6 +347,7 @@ if (Number(price) <= 0 || Number(quantity) < 0) {
 </button>
 
   <button
+    className="deleteBtn"
     onClick={() => handleDelete(vehicle.id)}
     style={{ marginLeft: "10px" }}
   >
@@ -347,6 +355,7 @@ if (Number(price) <= 0 || Number(quantity) < 0) {
   </button>
 
   <button
+    className="editBtn"
     onClick={() => handleEdit(vehicle)}
     style={{ marginLeft: "10px" }}
   >

@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function Dashboard() {
   const [vehicles, setVehicles] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
+
+  
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [editId, setEditId] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/");
+  };
 
   useEffect(() => {
     fetchVehicles();
@@ -201,6 +210,10 @@ const handleUpdate = async () => {
   return (
     <div style={{ padding: "30px" }}>
       <h1>🚗 Car Dealership Dashboard</h1>
+
+      <div style={{ margin: "15px 0" }}>
+  <button onClick={handleLogout}>Logout</button>
+</div>
 
       <div style={{ marginBottom: "20px" }}>
         <input
